@@ -15,7 +15,7 @@ library(readr)
 library(ggplot2)
 
 options(scipen = 999)
-film_data <- read_csv('../data/final_project_data.csv')
+film_data <- read_csv('./data/final_project_data.csv')
   skip_empty_rows = TRUE
   stringsAsFactors = TRUE
 ```
@@ -613,11 +613,5 @@ bechdel_result_table <- table(film_data$result_coded, film_data$bechdel)
 bechdel_result_odd <- fisher.test(bechdel_result_table)
 
 bechdel_result_odd$estimate
-
-```
-
-```{r}
-
-kruskal_test(data = violence, formula = Score ~ factor(box_office))
 
 ```
