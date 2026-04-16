@@ -4,7 +4,7 @@ output:
   html_document: default
   pdf_document: default
   word_document: default
-date: "2026-04-15"
+date: "2026-05-05"
 ---
 
 ```{r setup, include=FALSE}
@@ -17,26 +17,36 @@ library(ggplot2)
 options(scipen = 999)
 film_data <- read_csv('../data/final_project_data.csv')
   skip_empty_rows = TRUE
+  stringsAsFactors = TRUE
 ```
+
+### Esther Lim, Ethan Sanders, Kamilia Kwiatkowska
+
+# Research Question
+
+### Among the Oscar Academy Award Best Picture shortlisted films from 2020 to 2026, is there a significant relationship between a film’s IMDb Violence and Gore rating and the number of Bechdel Test criteria it meets?
 
 # Hypotheses
 
-H1 The higher the level of violence in an Academy Award for Best Picture nominated film, the fewer Bechdel Test criteria the film will pass.
+### Hypothesis 1 (H1)
 
-H2 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to pass Bechdel Test criteria.
+There is a statistically detectable relationship between a film’s IMDb Violence and Gore rating and the number of Bechdel Test criteria it meets among Oscar Best Picture shortlisted films (2020-2026).
 
-H3 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to score a higher level of violence.
+### Hypothesis 2 (H2)
 
-H4 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the more Bechdel Test criteria the film will pass.
+There is a relationship between a film being female-directed and non-female-directed and its odds of passing all three Bechdel Test criteria among Oscar Best Picture shortlisted films (2020-2026).
 
-H5 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the film will score a higher level of violence.
+### Hypothesis 3 (H3)
+
+There is a relationship between a film’s worldwide box office revenue and the IMDb Violence and Gore rating among Oscar Best Picture shortlisted films (2020-2026).
 
 # Findings
+
 ## Hypothesis 1
 
-H1 The higher the level of violence in an Academy Award for Best Picture nominated film, the fewer Bechdel Test criteria the film will pass.
+There is a statistically detectable relationship between a film’s IMDb Violence and Gore rating and the number of Bechdel Test criteria it meets among Oscar Best Picture shortlisted films (2020-2026).
 
-### Median and Mean H1
+### Median and Mean (H1)
 
 ```{r}
 violence_levels <- c(
@@ -595,3 +605,19 @@ film_data %>%
 ### Findings H5
 
 There is no real correlation between violence score and Box Office revenue for Academy Award Best Picture nominees, because p = 0.354. PLEASE CHECK.
+
+```{r}
+
+bechdel_result_table <- table(film_data$result_coded, film_data$bechdel)
+
+bechdel_result_odd <- fisher.test(bechdel_result_table)
+
+bechdel_result_odd$estimate
+
+```
+
+```{r}
+
+kruskal_test(data = violence, formula = Score ~ factor(box_office))
+
+```
