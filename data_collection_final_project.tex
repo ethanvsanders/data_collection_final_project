@@ -1,0 +1,410 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Final Project: Academy Award Nominated Films, Violence, and the Bechdel Test},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Final Project: Academy Award Nominated Films, Violence, and the
+Bechdel Test}
+\author{}
+\date{\vspace{-2.5em}2026-04-15}
+
+\begin{document}
+\maketitle
+
+\section{Hypotheses}\label{hypotheses}
+
+H1 The higher the level of violence in an Academy Award for Best Picture
+nominated film, the fewer Bechdel Test criteria the film will pass.
+
+H2 Of Best Picture nominees, winners of the Academy Award for Best
+Picture are more likely to pass Bechdel Test criteria.
+
+H3 Of Best Picture nominees, winners of the Academy Award for Best
+Picture are more likely to score a higher level of violence.
+
+H4 The higher the Box Office revenue for an Academy Award for Best
+Picture nominated film, the more Bechdel Test criteria the film will
+pass.
+
+H5 The higher the Box Office revenue for an Academy Award for Best
+Picture nominated film, the film will score a higher level of violence.
+
+\section{Findings}\label{findings}
+
+\subsection{Hypothesis 1}\label{hypothesis-1}
+
+H1 The higher the level of violence in an Academy Award for Best Picture
+nominated film, the fewer Bechdel Test criteria the film will pass.
+
+\subsubsection{Median and Mean H1}\label{median-and-mean-h1}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   violence     n   Mdn     M    SD
+##   <ord>    <int> <dbl> <dbl> <dbl>
+## 1 None        11     3  2.82 0.603
+## 2 Mild        24     2  2.04 0.999
+## 3 Moderate    18     3  2.5  0.857
+## 4 Severe      14     3  2.14 1.23
+\end{verbatim}
+
+\subsubsection{Scatter H1}\label{scatter-h1}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+\subsubsection{Violin H1}\label{violin-h1}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\subsubsection{Boxplot H1}\label{boxplot-h1}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\subsubsection{Spearman Test H1}\label{spearman-test-h1}
+
+\begin{verbatim}
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  bechdel and violence_coded
+## S = 53861, p-value = 0.5478
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##         rho 
+## -0.07473071
+\end{verbatim}
+
+\subsubsection{Findings H1}\label{findings-h1}
+
+There is no real correlation between Bechdel Test criteria passed and
+violence scores for Academy Award Best Picture nominees, because p =
+0.548. PLEASE CHECK.
+
+\section{Hypothesis 2}\label{hypothesis-2}
+
+H2 Of Best Picture nominees, winners of the Academy Award for Best
+Picture are more likely to pass Bechdel Test criteria.
+
+\subsubsection{Median and Mean H2}\label{median-and-mean-h2}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   result      n   Mdn     M    SD
+##   <ord>   <int> <dbl> <dbl> <dbl>
+## 1 Winner      7     3  2.86 0.378
+## 2 Nominee    60     3  2.25 1.02
+\end{verbatim}
+
+\subsubsection{Scatter H2}\label{scatter-h2}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\subsubsection{Violin H2}\label{violin-h2}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\subsubsection{Boxplot H2}\label{boxplot-h2}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-9-1.pdf}}
+
+\subsubsection{Spearman Test H2}\label{spearman-test-h2}
+
+\begin{verbatim}
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  bechdel and result_coded
+## S = 59275, p-value = 0.1388
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##        rho 
+## -0.1827487
+\end{verbatim}
+
+\subsubsection{Findings H2}\label{findings-h2}
+
+There is no real correlation between Bechdel Test criteria passed and
+winning the Academy Award Best Picture among Academy Award Best Picture
+nominees, because p = 0.139. PLEASE CHECK.
+
+\section{Hypothesis 3}\label{hypothesis-3}
+
+H3 Of Best Picture nominees, winners of the Academy Award for Best
+Picture are more likely to score a higher level of violence.
+
+\subsubsection{Median and Mean H3}\label{median-and-mean-h3}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   result      n   Mdn     M    SD
+##   <ord>   <int> <dbl> <dbl> <dbl>
+## 1 Winner      7     2  2.29 1.11 
+## 2 Nominee    60     2  2.55 0.999
+\end{verbatim}
+
+\subsubsection{Scatter H3}\label{scatter-h3}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-12-1.pdf}}
+
+\subsubsection{Violin H3}\label{violin-h3}
+
+\begin{verbatim}
+## Warning: Groups with fewer than two datapoints have been dropped.
+## i Set `drop = FALSE` to consider such groups for position adjustment purposes.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-13-1.pdf}}
+
+\subsubsection{Boxplot H3}\label{boxplot-h3}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-14-1.pdf}}
+
+\subsubsection{Spearman Test H3}\label{spearman-test-h3}
+
+\begin{verbatim}
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  violence_coded and result_coded
+## S = 46230, p-value = 0.5328
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##        rho 
+## 0.07754618
+\end{verbatim}
+
+\subsubsection{Findings H3}\label{findings-h3}
+
+There is no real correlation between violence score and winning the
+Academy Award Best Picture among Academy Award Best Picture nominees,
+because p = 0.533. PLEASE CHECK.
+
+\section{Hypothesis 4}\label{hypothesis-4}
+
+H4 The higher the Box Office revenue for an Academy Award for Best
+Picture nominated film, the more Bechdel Test criteria the film will
+pass.
+
+\subsubsection{Median and Mean H4}\label{median-and-mean-h4}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   bechdel     n      Mdn          M         SD
+##     <dbl> <int>    <dbl>      <dbl>      <dbl>
+## 1       0     4       NA        NA         NA 
+## 2       1    13       NA        NA         NA 
+## 3       2     8 34831574 160866240  334432862.
+## 4       3    42 51471937 265309461. 489957533.
+\end{verbatim}
+
+\subsubsection{Scatter H4}\label{scatter-h4}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+## Removed 4 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-17-1.pdf}}
+
+\subsubsection{Violin H4}\label{violin-h4}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing non-finite outside the scale range
+## (`stat_ydensity()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-18-1.pdf}}
+
+\subsubsection{Boxplot H4}\label{boxplot-h4}
+
+\begin{verbatim}
+## Warning: Orientation is not uniquely specified when both the x and y aesthetics are
+## continuous. Picking default orientation 'x'.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Continuous x aesthetic
+## i did you forget `aes(group = ...)`?
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing missing values or values outside the scale range
+## (`stat_boxplot()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-19-1.pdf}}
+
+\subsubsection{Spearman Test H4}\label{spearman-test-h4}
+
+\begin{verbatim}
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  bechdel and box_office
+## S = 36705, p-value = 0.3529
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.1190165
+\end{verbatim}
+
+\subsubsection{Findings H4}\label{findings-h4}
+
+There is no real correlation between Bechdel Test criteria met and Box
+Office revenue for Academy Award Best Picture nominees, because p =
+0.353. PLEASE CHECK.
+
+\section{Hypothesis 5}\label{hypothesis-5}
+
+H5 The higher the Box Office revenue for an Academy Award for Best
+Picture nominated film, the film will score a higher level of violence.
+
+\subsubsection{Median and Mean H5}\label{median-and-mean-h5}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   violence     n      Mdn          M         SD
+##   <ord>    <int>    <dbl>      <dbl>      <dbl>
+## 1 None        11 39458207 195740224. 425661509.
+## 2 Mild        24       NA        NA         NA 
+## 3 Moderate    18       NA        NA         NA 
+## 4 Severe      14       NA        NA         NA
+\end{verbatim}
+
+\subsubsection{Scatter H5}\label{scatter-h5}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+## Removed 4 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-22-1.pdf}}
+
+\subsubsection{Violin H5}\label{violin-h5}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing non-finite outside the scale range
+## (`stat_ydensity()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-23-1.pdf}}
+
+\subsubsection{Boxplot H5}\label{boxplot-h5}
+
+\begin{verbatim}
+## Warning: Removed 4 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{data_collection_final_project_files/figure-latex/unnamed-chunk-24-1.pdf}}
+
+\subsubsection{Spearman Test H5}\label{spearman-test-h5}
+
+\begin{verbatim}
+## Warning in cor.test.default(x = mf[[1L]], y = mf[[2L]], ...): Cannot compute
+## exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  violence_coded and box_office
+## S = 36711, p-value = 0.3534
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.1188849
+\end{verbatim}
+
+\subsubsection{Findings H5}\label{findings-h5}
+
+There is no real correlation between violence score and Box Office
+revenue for Academy Award Best Picture nominees, because p = 0.354.
+PLEASE CHECK.
+
+\end{document}

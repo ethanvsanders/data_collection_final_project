@@ -1,0 +1,597 @@
+---
+title: 'Final Project: Academy Award Nominated Films, Violence, and the Bechdel Test'
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+date: "2026-04-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(dplyr)
+library(readr)
+library(ggplot2)
+
+options(scipen = 999)
+film_data <- read_csv('../data/final_project_data.csv')
+  skip_empty_rows = TRUE
+```
+
+# Hypotheses
+
+H1 The higher the level of violence in an Academy Award for Best Picture nominated film, the fewer Bechdel Test criteria the film will pass.
+
+H2 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to pass Bechdel Test criteria.
+
+H3 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to score a higher level of violence.
+
+H4 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the more Bechdel Test criteria the film will pass.
+
+H5 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the film will score a higher level of violence.
+
+# Findings
+## Hypothesis 1
+
+H1 The higher the level of violence in an Academy Award for Best Picture nominated film, the fewer Bechdel Test criteria the film will pass.
+
+### Median and Mean H1
+
+```{r}
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  group_by(
+    violence
+  ) %>%
+  summarize(
+    n = n(),
+    Mdn = median(bechdel),
+    M = mean(bechdel),
+    SD = sd(bechdel)
+  )
+```
+
+### Scatter H1
+
+```{r}
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = violence, y = bechdel)
+  ) +
+  geom_point() +
+  geom_jitter()
+```
+
+### Violin H1
+
+```{r}
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = violence, y = bechdel)
+  ) +
+  geom_violin()
+```
+
+### Boxplot H1
+
+```{r}
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = violence, y = bechdel)
+  ) +
+  geom_boxplot()
+```
+
+### Spearman Test H1
+
+```{r}
+film_data <- film_data %>%
+  mutate(
+    violence_coded = violence %>%
+      as.numeric
+  )
+
+film_data %>%
+  cor.test(
+    ~ bechdel + violence_coded,
+    data = .,
+    method = 'spearman'
+  )
+```
+
+### Findings H1
+
+There is no real correlation between Bechdel Test criteria passed and violence scores for Academy Award Best Picture nominees, because p = 0.548. PLEASE CHECK.
+
+# Hypothesis 2
+
+H2 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to pass Bechdel Test criteria.
+
+### Median and Mean H2
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+film_data %>%
+  group_by(
+    result
+  ) %>%
+  summarize(
+    n = n(),
+    Mdn = median(bechdel),
+    M = mean(bechdel),
+    SD = sd(bechdel)
+  )
+```
+
+### Scatter H2
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = bechdel)
+  ) +
+  geom_point() +
+  geom_jitter()
+```
+
+### Violin H2
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = bechdel)
+  ) +
+  geom_violin()
+```
+
+### Boxplot H2
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = bechdel)
+  ) +
+  geom_boxplot()
+```
+
+### Spearman Test H2
+
+```{r}
+film_data <- film_data %>%
+  mutate(
+    result_coded = result %>%
+      as.numeric
+  )
+
+film_data %>%
+  cor.test(
+    ~ bechdel + result_coded,
+    data = .,
+    method = 'spearman'
+  )
+```
+
+### Findings H2
+
+There is no real correlation between Bechdel Test criteria passed and winning the Academy Award Best Picture among Academy Award Best Picture nominees, because p = 0.139. PLEASE CHECK.
+
+# Hypothesis 3
+
+H3 Of Best Picture nominees, winners of the Academy Award for Best Picture are more likely to score a higher level of violence.
+
+### Median and Mean H3
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+film_data %>%
+  group_by(
+    result
+  ) %>%
+  summarize(
+    n = n(),
+    Mdn = median(violence_coded),
+    M = mean(violence_coded),
+    SD = sd(violence_coded)
+  )
+```
+
+### Scatter H3
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = violence)
+  ) +
+  geom_point() +
+  geom_jitter()
+```
+
+### Violin H3
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = violence)
+  ) +
+  geom_violin()
+```
+
+### Boxplot H3
+
+```{r}
+result_levels <- c(
+  'Winner',
+  'Nominee'
+)
+
+film_data <- film_data %>%
+  mutate(
+    result = result %>%
+      ordered(
+        levels = result_levels
+      )
+  )
+
+violence_levels <- c(
+  'None',
+  'Mild',
+  'Moderate',
+  'Severe'
+)
+
+film_data <- film_data %>%
+  mutate(
+    violence = violence %>%
+      ordered(
+        levels = violence_levels
+      )
+  )
+
+film_data %>%
+  ggplot(
+    aes(x = result, y = violence)
+  ) +
+  geom_boxplot()
+```
+
+### Spearman Test H3
+
+```{r}
+film_data <- film_data %>%
+  mutate(
+    result_coded = result %>%
+      as.numeric
+  )
+
+film_data <- film_data %>%
+  mutate(
+    violence_coded = violence %>%
+      as.numeric
+  )
+
+film_data %>%
+  cor.test(
+    ~ violence_coded + result_coded,
+    data = .,
+    method = 'spearman'
+  )
+```
+
+### Findings H3
+
+There is no real correlation between violence score and winning the Academy Award Best Picture among Academy Award Best Picture nominees, because p = 0.533. PLEASE CHECK.
+
+# Hypothesis 4
+
+H4 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the more Bechdel Test criteria the film will pass.
+
+### Median and Mean H4
+
+```{r}
+film_data %>%
+  group_by(
+    bechdel
+  ) %>%
+  summarize(
+    n = n(),
+    Mdn = median(box_office),
+    M = mean(box_office),
+    SD = sd(box_office)
+  )
+```
+
+### Scatter H4
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = bechdel)
+  ) +
+  geom_point() +
+  geom_jitter()
+```
+
+### Violin H4
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = bechdel)
+  ) +
+  geom_violin()
+```
+
+### Boxplot H4
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = bechdel)
+  ) +
+  geom_boxplot()
+```
+
+### Spearman Test H4
+
+```{r}
+film_data %>%
+  cor.test(
+    ~ bechdel + box_office,
+    data = .,
+    method = 'spearman'
+  )
+```
+
+### Findings H4
+
+There is no real correlation between Bechdel Test criteria met and Box Office revenue for Academy Award Best Picture nominees, because p = 0.353. PLEASE CHECK.
+
+# Hypothesis 5
+
+H5 The higher the Box Office revenue for an Academy Award for Best Picture nominated film, the film will score a higher level of violence.
+
+### Median and Mean H5
+
+```{r}
+film_data %>%
+  group_by(
+    violence
+  ) %>%
+  summarize(
+    n = n(),
+    Mdn = median(box_office),
+    M = mean(box_office),
+    SD = sd(box_office)
+  )
+```
+
+### Scatter H5
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = violence)
+  ) +
+  geom_point() +
+  geom_jitter()
+```
+
+### Violin H5
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = violence)
+  ) +
+  geom_violin()
+```
+
+### Boxplot H5
+
+```{r}
+film_data %>%
+  ggplot(
+    aes(x = box_office, y = violence)
+  ) +
+  geom_boxplot()
+```
+
+### Spearman Test H5
+
+```{r}
+film_data <- film_data %>%
+  mutate(
+    violence_coded = violence %>%
+      as.numeric
+  )
+
+film_data %>%
+  cor.test(
+    ~ violence_coded + box_office,
+    data = .,
+    method = 'spearman'
+  )
+```
+
+### Findings H5
+
+There is no real correlation between violence score and Box Office revenue for Academy Award Best Picture nominees, because p = 0.354. PLEASE CHECK.
